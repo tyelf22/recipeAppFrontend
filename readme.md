@@ -1,4 +1,4 @@
-# Basic Todo App
+# Vanilla JS Recipe App
 
 This app is useful for creating todos, organizing todos, and being sure you have complete control over your todos.
 
