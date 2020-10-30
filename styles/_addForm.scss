@@ -1,0 +1,70 @@
+.addModal{
+    .ingredientField{
+        .ingredientInput{
+            display: flex;
+        }
+    }
+
+    .directionField{
+        .directionInput{
+            display: flex;
+        }
+    }
+
+    .rate {
+        height: 46px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .rate :nth-child(8) { order: 1; }
+        .rate :nth-child(2) { order: 4;  }
+        .rate :nth-child(4) { order: 3; }
+        .rate :nth-child(6) { order: 2; }
+
+    .rate:not(:checked) > input {
+        position:absolute;
+        top:-9999px;
+    }
+    .rate:not(:checked) > label {
+        float:right;
+        width:1em;
+        overflow:hidden;
+        white-space:nowrap;
+        cursor:pointer;
+        font-size:30px;
+        color:#ccc;
+    }
+    .rate:not(:checked) > label:before {
+        content: '★ ';
+    }
+    .rate > input:checked ~ label {
+        color: #ffc700;    
+    }
+    .rate:not(:checked) > label:hover,
+    .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;  
+    }
+    .rate > input:checked + label:hover,
+    .rate > input:checked + label:hover ~ label,
+    .rate > input:checked ~ label:hover,
+    .rate > input:checked ~ label:hover ~ label,
+    .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+    }
+
+    .ingredientList, .directionList{
+        // list-style-type: "❌";
+
+    }
+
+
+
+    #deleteIngredient {
+        color: red;
+        margin-left: 10px;
+    }
+
+}
+

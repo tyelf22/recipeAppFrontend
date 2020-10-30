@@ -38,10 +38,83 @@
         </div>
     </div>
 
+    
+    <!-- Modal -->
+    <div class="modal fade addModal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Create Recipe</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                      <label for="name">Recipe Name</label>
+                      <input type="text" class="form-control" id="nameField" aria-describedby="name" placeholder="Name">
+                      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                    </div>
+                    <div class="form-group">
+                      <label for="description">Recipe Description</label>
+                      <input type="text" class="form-control" id="descriptionField" placeholder="Description">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Recipe Category</label>
+                        <input type="text" class="form-control" id="categoryField" placeholder="Category">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Recipe Rating</label>
+                        <div class="rate">
+                            <input type="radio" id="star1" name="rate" value="1" />
+                            <label for="star1" title="text">1 star</label>
+                            <input type="radio" id="star2" name="rate" value="2" />
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star3" name="rate" value="3" />
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star4" name="rate" value="4" />
+                            <label for="star4" title="text">4 stars</label>
+                          </div>
+                    </div>
+                    <div class="form-group ingredientField">
+                        <label for="ingredients">Recipe Ingredients</label>
+                        <div class="ingredientInput">
+                            <input type="text" class="form-control" id="ingredientInput" placeholder="Ingredients">
+                            <input id="ingredientBtn" type="button" value="Add"/>
+                        </div>
+                        <small id="ingredientsSmall" class="form-text text-muted">Enter each ingredient individually.</small>
+                        <ul class="ingredientList">
+
+                        </ul>
+                    </div>
+                    <div class="form-group directionField">
+                        <label for="directions">Recipe Directions</label>
+                        <div class="directionInput">
+                            <input type="text" class="form-control" id="directionInput" placeholder="Directions">
+                            <input id="directionBtn" type="button" value="Add">
+                        </div>
+                        <small id="directionsSmall" class="form-text text-muted">Enter each direction individually.</small>
+                        <ul class="directionList">
+
+                        </ul>
+                    </div>
+
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                  </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="saveModal" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <!--Floating Button-->
-    <btn class="float">
+    <button type="button" class="float" data-toggle="modal" data-target="#exampleModalCenter">
         <i class="fa fa-plus my-float"></i>
-    </btn>
+    </button>
 
     <script src="app.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

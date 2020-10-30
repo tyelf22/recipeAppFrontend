@@ -3,8 +3,10 @@
     flex-wrap: wrap;
     justify-content: center;
     .recipe-card {
+        position: relative;
         background: #fff;
         width: 350px;
+        min-height: 500px;
         margin: 5px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         //border radius
@@ -74,7 +76,7 @@
             }
     
             .ingredients {
-                margin: 2px 0;
+                margin: 5px 5px 15px 0;
             }
         }
     
@@ -115,12 +117,24 @@
             height: 18px;
         }
 
-        i{
-            font-size: 24px;
-            float: right;
-            margin: 0 5px 5px 0;
+        .edit{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 32px;
+            margin: 5px 45px 5px 0;
             cursor: pointer;
+            color: #4caf50;
+        }
 
+        .trash {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 32px;
+            margin: 8px;
+            cursor: pointer;
+            color: #F44336;
         }
     }
 }
