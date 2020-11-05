@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Omlette",
+        "description": "Fluffy yellow delicious omlettes",
+        "category": "breakfast",
+        "rating": 2,
+        "ingredients": ["eggs", "salt", "pepper", "onions", "peppers", "tomatoes"],
+        "directions": ["Mix in Bowl", "preheat stove", "flip", "fold"]
+    },
+    {
+        "name": "Pancakes",
+        "description": "Fluffy pancakes",
+        "category": "breakfast",
+        "rating": 2,
+        "ingredients": ["eggs", "salt", "pepper", "onions", "peppers", "tomatoes"],
+        "directions": ["Mix in Bowl", "preheat stove", "flip", "fold"]
+    },
+    {
+        "name": "French Toast",
+        "description": "Fluffy yellow delicious omlettes",
+        "category": "breakfast",
+        "rating": 2,
+        "ingredients": ["eggs", "salt", "pepper", "onions", "peppers", "tomatoes"],
+        "directions": ["Mix in Bowl", "preheat stove", "flip", "fold"]
+    },
+    {
+        "name": "Spaghetti",
+        "description": "Red spaghetti with meatballs",
+        "category": "Dinner",
+        "rating": 4,
+        "ingredients": ["eggs", "salt", "pepper", "onions", "peppers", "tomatoes"],
+        "directions": ["Mix in Bowl", "preheat stove", "flip", "fold"]
+    },
+    {
+        "name": "Lasagna",
+        "description": "Saucy meaty lasagna",
+        "category": "Dinner",
+        "rating": 3,
+        "ingredients": ["eggs", "salt", "pepper", "onions", "peppers", "tomatoes"],
+        "directions": ["Mix in Bowl", "preheat stove", "flip", "fold"]
+    },
+    {
+        "name": "Steak",
+        "description": "Tender sirloin steak",
+        "category": "Dinner",
+        "rating": 4,
+        "ingredients": ["eggs", "salt", "pepper", "onions", "peppers", "tomatoes"],
+        "directions": ["Mix in Bowl", "preheat stove", "flip", "fold"]
+    },
+    {
+        "name": "Bread",
+        "description": "Fluffy Bread",
+        "category": "Lunch",
+        "rating": 2,
+        "ingredients": ["eggs", "salt", "pepper", "onions", "peppers", "tomatoes"],
+        "directions": ["Mix in Bowl", "preheat stove", "flip", "fold"]
+    },
+    {
+        "name": "Brownies",
+        "description": "Dark puffy brownies",
+        "category": "Dessert",
+        "rating": 2,
+        "ingredients": ["eggs", "salt", "pepper", "onions", "peppers", "tomatoes"],
+        "directions": ["Mix in Bowl", "preheat stove", "flip", "fold"]
+    },
+    {
+        "name": "Cookies",
+        "description": "Golden crispy cookies",
+        "category": "Dessert",
+        "rating": 3,
+        "ingredients": ["eggs", "salt", "pepper", "onions", "peppers", "tomatoes"],
+        "directions": ["Mix in Bowl", "preheat stove", "flip", "fold"]
+    }
+]

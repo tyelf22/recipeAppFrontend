@@ -113,6 +113,8 @@ let rate = document.getElementsByName('rate')
 //Buttons
 let ingredientBtn = document.querySelector('#ingredientBtn').addEventListener('click', () => addIngredient())
 let directionBtn = document.querySelector('#directionBtn').addEventListener('click', () => addDirection())
+
+let addNewRecipeBtn = document.querySelector('#addNewRecipeBtn').addEventListener('click', () => newRecipeBtn_click())
 //Lists
 let ingredientList = document.querySelector('.ingredientList')
 let directionList = document.querySelector('.directionList')
@@ -124,6 +126,16 @@ let saveModal = document.querySelector('#saveModal').addEventListener('click', (
 //Array
 let ingredientArr = []
 let directionArr = []
+
+let newRecipeBtn_click = () => {
+    nameField.value = ""
+    descriptionField.value = ""
+    categoryField.value = ""
+    ingredientList.innerHTML = ""
+    directionList.innerHTML = ""
+    ingredientInput.value = ""
+    directionInput.value = ""
+}
 
 const addIngredient = () => {
     let p = document.createElement('li')
@@ -251,26 +263,28 @@ const editRecipe = async(id) => {
     radioBtn.checked = true;
 
     ingredientList.innerHTML = ''
-    editedRecipe.ingredients.forEach((rec, index) => {
-        console.log(rec)
-        let addLi = document.createElement('li')
-        let i = document.createElement('i')
-        i.classList.add('fa', 'fa-times-circle', 'delIcon')
-        i.id = `deleteIngredient${index}`
-        addLi.innerText = rec
-        ingredientList.appendChild(addLi)
-        addLi.appendChild(i)
-        editIngredientArr.push(rec)
-    })
+    reRenderIngredients(id, editedRecipe.ingredients)
+    // editedRecipe.ingredients.forEach((rec, index) => {
+    //     console.log(rec)
+    //     let addLi = document.createElement('li')
+    //     let i = document.createElement('i')
+    //     i.classList.add('fa', 'fa-times-circle', 'delIcon')
+    //     i.id = `deleteIngredient${index}`
+    //     addLi.innerText = rec
+    //     ingredientList.appendChild(addLi)
+    //     addLi.appendChild(i)
+    //     editIngredientArr.push(rec)
+    // })
 
     directionList.innerHTML = ''
     //Render the ingredient list
-    reRenderDirections(id, editedRecipe.directions, editIngredientArr, editDirectionArr)
+    reRenderDirections(id, editedRecipe.directions)
+    
 
 }
 
-const reRenderDirections = (id, data, editIngredientArr, editDirectionArr) => {
-
+const reRenderDirections = (id, data) => {
+    directionList.innerHTML = ""
     
     data.forEach((rec, index) => {
         let addLi = document.createElement('li')
@@ -278,7 +292,7 @@ const reRenderDirections = (id, data, editIngredientArr, editDirectionArr) => {
         i.classList.add('fa', 'fa-times-circle', 'delIcon')
         i.id = `ingDel@${index}`
         i.addEventListener('click', () => {
-            removeDirection(index, id, editIngredientArr, editDirectionArr, data)
+            removeDirection(index, id, data)
         })
         addLi.innerText = rec
         directionList.appendChild(addLi)
@@ -288,34 +302,39 @@ const reRenderDirections = (id, data, editIngredientArr, editDirectionArr) => {
 
 }
 
-const removeDirection = async(index, id, inArr, dirArr, data) => {
-
-
+const removeDirection = async(index, id, dirArr) => {
     dirArr.splice(index, 1)
 
-    //UPDATE Direction Arr
-    await fetch(`${url}/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-            directions: dirArr
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-
-    editRecipe(id)
+    reRenderDirections(id, dirArr)
     
 }
 
 
+const reRenderIngredients = (id, data) => {
+    ingredientList.innerHTML = ""
+
+    data.forEach((rec, index) => {
+        let addLi = document.createElement('li')
+        let i = document.createElement('i')
+        i.classList.add('fa', 'fa-times-circle', 'delIcon')
+        i.id = `ingDel@${index}`
+        i.addEventListener('click', () => {
+            removeIngredient(index, id, data)
+        })
+        addLi.innerText = rec
+        ingredientList.appendChild(addLi)
+        addLi.appendChild(i)
+        editIngredientArr.push(rec)
+    })
+
+}
 
 
+const removeIngredient = async(index, id, ingArr) => {
+    ingArr.splice(index, 1)
 
-
-
+    reRenderIngredients(id, ingArr)
+}
 
 
 
