@@ -251,27 +251,49 @@ const editRecipe = async(id) => {
     radioBtn.checked = true;
 
     ingredientList.innerHTML = ''
-    editedRecipe.ingredients.forEach(rec => {
+    editedRecipe.ingredients.forEach((rec, index) => {
+        console.log(rec)
         let addLi = document.createElement('li')
         let i = document.createElement('i')
-        i.classList.add('fa', 'fa-times-circle')
-        i.id = 'deleteIngredient'
+        i.classList.add('fa', 'fa-times-circle', 'delIcon')
+        i.id = `deleteIngredient${index}`
         addLi.innerText = rec
         ingredientList.appendChild(addLi)
+        addLi.appendChild(i)
         editIngredientArr.push(rec)
     })
 
     directionList.innerHTML = ''
-    editedRecipe.directions.forEach(rec => {
+    //Render the ingredient list
+    reRenderDirections(editedRecipe.directions, editIngredientArr, editDirectionArr)
+
+}
+
+const reRenderDirections = (data, editIngredientArr, editDirectionArr) => {
+    data.forEach((rec, index) => {
         let addLi = document.createElement('li')
+        let i = document.createElement('i')
+        i.classList.add('fa', 'fa-times-circle', 'delIcon')
+        i.id = `ingDel@${index}`
+        i.addEventListener('click', () => {
+            removeDirection(index, editIngredientArr, editDirectionArr)
+        })
         addLi.innerText = rec
         directionList.appendChild(addLi)
+        addLi.appendChild(i)
         editDirectionArr.push(rec)
     })
+}
 
-    
+const removeDirection = (index, inArr, dirArr) => {
+    console.log(index)
+    console.log(inArr)
+    console.log(dirArr)
 
+    dirArr.splice(index, 1)
 
+    console.log(dirArr)
+    reRenderDirections()
 }
 
 

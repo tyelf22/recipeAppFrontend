@@ -232,7 +232,7 @@
   color: #c59b08;
 }
 
-.addModal #deleteIngredient {
+.addModal .delIcon {
   color: red;
   margin-left: 10px;
 }
