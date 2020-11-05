@@ -265,36 +265,51 @@ const editRecipe = async(id) => {
 
     directionList.innerHTML = ''
     //Render the ingredient list
-    reRenderDirections(editedRecipe.directions, editIngredientArr, editDirectionArr)
+    reRenderDirections(id, editedRecipe.directions, editIngredientArr, editDirectionArr)
 
 }
 
-const reRenderDirections = (data, editIngredientArr, editDirectionArr) => {
+const reRenderDirections = (id, data, editIngredientArr, editDirectionArr) => {
+
+    
     data.forEach((rec, index) => {
         let addLi = document.createElement('li')
         let i = document.createElement('i')
         i.classList.add('fa', 'fa-times-circle', 'delIcon')
         i.id = `ingDel@${index}`
         i.addEventListener('click', () => {
-            removeDirection(index, editIngredientArr, editDirectionArr)
+            removeDirection(index, id, editIngredientArr, editDirectionArr, data)
         })
         addLi.innerText = rec
         directionList.appendChild(addLi)
         addLi.appendChild(i)
         editDirectionArr.push(rec)
     })
+
 }
 
-const removeDirection = (index, inArr, dirArr) => {
-    console.log(index)
-    console.log(inArr)
-    console.log(dirArr)
+const removeDirection = async(index, id, inArr, dirArr, data) => {
+
 
     dirArr.splice(index, 1)
 
-    console.log(dirArr)
-    reRenderDirections()
+    //UPDATE Direction Arr
+    await fetch(`${url}/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+            directions: dirArr
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+
+    editRecipe(id)
+    
 }
+
 
 
 
