@@ -130,6 +130,9 @@ let ingredientArr = []
 let directionArr = []
 
 let newRecipeBtn_click = () => {
+    isEdit = false
+    console.log('isEdit on add btn click', isEdit)
+
     nameField.value = ""
     descriptionField.value = ""
     categoryField.value = ""
@@ -138,8 +141,6 @@ let newRecipeBtn_click = () => {
     ingredientInput.value = ""
     directionInput.value = ""
 
-
-    isEdit = false
 }
 
 const addIngredient = () => {
@@ -192,33 +193,59 @@ const saveIngredient = async() => {
             ratingNum = 1
     }
 
-    let newRecipe = {
-        name: nameField.value,
-        description: descriptionField.value,
-        category: categoryField.value,
-        rating: ratingNum,
-        ingredients: ingredientArr,
-        directions: directionArr
-    }
+
 
     if(isEdit){
-        console.log('in isEdit')
+        let ingArr = []
+        let dirArr = []
+
+        let ingChildren = document.querySelector('.ingredientList')
+        ingChildren.childNodes.forEach(node => {
+            ingArr.push(node.innerText)
+        })
+
+        let dirChildren = document.querySelector('.directionList')
+        dirChildren.childNodes.forEach(node => {
+            dirArr.push(node.innerText)
+        })
+    
+
+        let editedRecipe = {
+            name: nameField.value,
+            description: descriptionField.value,
+            category: categoryField.value,
+            rating: ratingNum,
+            ingredients: ingArr,
+            directions: dirArr
+        }
+
         let localId = localStorage.getItem('globalId')
         let postUrl = `${url}/${localId}`
         const rawResponse = await fetch(postUrl, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(newRecipe)
+            body: JSON.stringify(editedRecipe)
         });
         const content = await rawResponse.json();
     
         console.log(content)
         if (content) {
+            ingredientArr = []
+            directionArr = []
             retrieveAll()
         }
     }else {
+        let newRecipe = {
+            name: nameField.value,
+            description: descriptionField.value,
+            category: categoryField.value,
+            rating: ratingNum,
+            ingredients: ingredientArr,
+            directions: directionArr
+        }
+
         const rawResponse = await fetch(url, {
             method: 'POST',
             headers: {
@@ -254,11 +281,10 @@ const deleteRecipe = async(id) => {
 //Edit Recipe
 const editRecipe = async(id) => {
     let editedRecipe
-    console.log('is edit =', isEdit)
+    
     isEdit = true
     localStorage.setItem('globalId', id);
     
-
     await fetch(`${url}/${id}`)
     .then(response => response.json())
     .then(data => {
@@ -317,7 +343,7 @@ const reRenderDirections = (id, data) => {
         addLi.innerText = rec
         directionList.appendChild(addLi)
         addLi.appendChild(i)
-        editDirectionArr.push(rec)
+        //editDirectionArr.push(rec)
     })
 
 }
@@ -344,7 +370,7 @@ const reRenderIngredients = (id, data) => {
         addLi.innerText = rec
         ingredientList.appendChild(addLi)
         addLi.appendChild(i)
-        editIngredientArr.push(rec)
+        //editIngredientArr.push(rec)
     })
 
 }
