@@ -1,6 +1,8 @@
 console.log('connected to app.js')
 const url = "http://localhost:3000/recipes"
 
+//global var for saving or adding
+let isEdit = true
 
 //Display all todos
 const showRecipes = document.querySelector(".recipes")
@@ -135,26 +137,31 @@ let newRecipeBtn_click = () => {
     directionList.innerHTML = ""
     ingredientInput.value = ""
     directionInput.value = ""
+
+
+    isEdit = false
 }
 
 const addIngredient = () => {
-    let p = document.createElement('li')
+    let addLi = document.createElement('li')
     let i = document.createElement('i')
-    i.classList.add('fa', 'fa-times-circle')
-    i.id = 'deleteIngredient'
-    p.innerText = ingredientInput.value
-    p.appendChild(i)
-    ingredientList.appendChild(p)
-    ingredientArr.push(p.innerText)
-    console.log(ingredientArr)
+    i.classList.add('fa', 'fa-times-circle', 'delIcon')
+
+    addLi.innerText = ingredientInput.value
+    ingredientList.appendChild(addLi)
+    addLi.appendChild(i)
+    ingredientArr.push(ingredientInput.value)
 }
 
 const addDirection = () => {
-    let p = document.createElement('li')
-    p.innerText = directionInput.value
-    directionList.appendChild(p)
-    directionArr.push(p.innerText)
-    console.log(directionArr)
+    let addLi = document.createElement('li')
+    let i = document.createElement('i')
+    i.classList.add('fa', 'fa-times-circle', 'delIcon')
+
+    addLi.innerText = directionInput.value
+    directionList.appendChild(addLi)
+    addLi.appendChild(i)
+    directionArr.push(directionInput.value)
 }
 
 //Save Ingredient from Modal
@@ -194,19 +201,39 @@ const saveIngredient = async() => {
         directions: directionArr
     }
 
-    const rawResponse = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newRecipe)
-    });
-    const content = await rawResponse.json();
-
-    console.log(content)
-    if (content) {
-        retrieveAll()
+    if(isEdit){
+        console.log('in isEdit')
+        let localId = localStorage.getItem('globalId')
+        let postUrl = `${url}/${localId}`
+        const rawResponse = await fetch(postUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newRecipe)
+        });
+        const content = await rawResponse.json();
+    
+        console.log(content)
+        if (content) {
+            retrieveAll()
+        }
+    }else {
+        const rawResponse = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newRecipe)
+        });
+        const content = await rawResponse.json();
+    
+        console.log(content)
+        if (content) {
+            retrieveAll()
+        }
     }
+
 
 }
 
@@ -227,6 +254,11 @@ const deleteRecipe = async(id) => {
 //Edit Recipe
 const editRecipe = async(id) => {
     let editedRecipe
+    console.log('is edit =', isEdit)
+    isEdit = true
+    localStorage.setItem('globalId', id);
+    
+
     await fetch(`${url}/${id}`)
     .then(response => response.json())
     .then(data => {
@@ -264,20 +296,8 @@ const editRecipe = async(id) => {
 
     ingredientList.innerHTML = ''
     reRenderIngredients(id, editedRecipe.ingredients)
-    // editedRecipe.ingredients.forEach((rec, index) => {
-    //     console.log(rec)
-    //     let addLi = document.createElement('li')
-    //     let i = document.createElement('i')
-    //     i.classList.add('fa', 'fa-times-circle', 'delIcon')
-    //     i.id = `deleteIngredient${index}`
-    //     addLi.innerText = rec
-    //     ingredientList.appendChild(addLi)
-    //     addLi.appendChild(i)
-    //     editIngredientArr.push(rec)
-    // })
 
     directionList.innerHTML = ''
-    //Render the ingredient list
     reRenderDirections(id, editedRecipe.directions)
     
 
