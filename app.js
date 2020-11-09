@@ -103,6 +103,10 @@ const organizeInfo = (data) => {
 
 }
 
+
+
+
+
 //Modal
 //Text Fields
 let nameField = document.querySelector('#nameField')
@@ -145,10 +149,16 @@ let newRecipeBtn_click = () => {
 
 const addIngredient = () => {
     let addLi = document.createElement('li')
+    let addTextBox = document.createElement('input')
+    addTextBox.setAttribute("type", "text");
+    addTextBox.value = ingredientInput.value
+
+    addLi.appendChild(addTextBox)
+
+
     let i = document.createElement('i')
     i.classList.add('fa', 'fa-times-circle', 'delIcon')
 
-    addLi.innerText = ingredientInput.value
     ingredientList.appendChild(addLi)
     addLi.appendChild(i)
     ingredientArr.push(ingredientInput.value)
@@ -156,10 +166,14 @@ const addIngredient = () => {
 
 const addDirection = () => {
     let addLi = document.createElement('li')
+    let addTextBox = document.createElement('input')
+    addTextBox.setAttribute("type", "text");
+    addTextBox.value = directionInput.value
+
+    addLi.appendChild(addTextBox)
     let i = document.createElement('i')
     i.classList.add('fa', 'fa-times-circle', 'delIcon')
 
-    addLi.innerText = directionInput.value
     directionList.appendChild(addLi)
     addLi.appendChild(i)
     directionArr.push(directionInput.value)
@@ -201,13 +215,17 @@ const saveIngredient = async() => {
 
         let ingChildren = document.querySelector('.ingredientList')
         ingChildren.childNodes.forEach(node => {
-            ingArr.push(node.innerText)
+            console.log(node.firstElementChild.value)
+            ingArr.push(node.firstElementChild.value)
         })
 
         let dirChildren = document.querySelector('.directionList')
         dirChildren.childNodes.forEach(node => {
-            dirArr.push(node.innerText)
+            dirArr.push(node.firstElementChild.value)
         })
+
+        console.log(ingArr)
+        console.log(dirArr)
     
 
         let editedRecipe = {
@@ -334,13 +352,19 @@ const reRenderDirections = (id, data) => {
     
     data.forEach((rec, index) => {
         let addLi = document.createElement('li')
+
+        let addTextBox = document.createElement('input')
+        addTextBox.setAttribute("type", "text");
+        addTextBox.value = rec
+
+        addLi.appendChild(addTextBox)
         let i = document.createElement('i')
         i.classList.add('fa', 'fa-times-circle', 'delIcon')
         i.id = `ingDel@${index}`
         i.addEventListener('click', () => {
             removeDirection(index, id, data)
         })
-        addLi.innerText = rec
+        //addLi.innerText = rec
         directionList.appendChild(addLi)
         addLi.appendChild(i)
         //editDirectionArr.push(rec)
@@ -359,17 +383,24 @@ const removeDirection = async(index, id, dirArr) => {
 const reRenderIngredients = (id, data) => {
     ingredientList.innerHTML = ""
 
+
     data.forEach((rec, index) => {
         let addLi = document.createElement('li')
+        let addTextBox = document.createElement('input')
+        addTextBox.setAttribute("type", "text");
+        addTextBox.value = rec
+
+        addLi.appendChild(addTextBox)
         let i = document.createElement('i')
         i.classList.add('fa', 'fa-times-circle', 'delIcon')
         i.id = `ingDel@${index}`
         i.addEventListener('click', () => {
             removeIngredient(index, id, data)
         })
-        addLi.innerText = rec
+        //addLi.innerText = rec
         ingredientList.appendChild(addLi)
         addLi.appendChild(i)
+        
         //editIngredientArr.push(rec)
     })
 
