@@ -14,18 +14,6 @@ const retrieveAll = async () => {
     })
 }
 
-//Get a uniq set of categories
-const categoryParser = (data) => {
-    allCategories = []
-
-    data.forEach(d => {
-        allCategories.push(d.category)
-    })
-
-    let uniqCategories = [...new Set(allCategories)]
-
-    return uniqCategories
-}
 
 const recipeWrapper = document.querySelector('.recipes')
 
@@ -103,7 +91,33 @@ const organizeInfo = (data) => {
 
 }
 
+//Search Button and Input
+let searchBtn = document.querySelector('#searchBtn').addEventListener('click', () => {
+    searchBtn_click()
+})
+let clearBtn = document.querySelector('#clearBtn').addEventListener('click', () => {
+    clearBtn_click()
+})
 
+let searchInput = document.querySelector('#searchInput')
+
+const searchBtn_click = async() => {
+    await fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        let filtered = data.filter(rec => {
+            let cat = rec.category.toLowerCase()
+            let search = searchInput.value.toLowerCase()
+            return cat == search
+        })
+    organizeInfo(filtered)
+    })
+}
+
+const clearBtn_click = () => {
+    searchInput.value = ""
+    retrieveAll()
+}
 
 
 

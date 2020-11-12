@@ -31,7 +31,13 @@
 
     <!--Recipe Container-->
     <div class="container recipesContainer">
-        <h1>My Recipes</h1>
+        <div class="titleSearch">
+            <h1>My Recipes</h1>
+            <input id="searchInput" type="text" placeholder="Search Category...">
+            <button id="searchBtn" type="button"><i class="fa fa-search"></i></button>
+            <button id="clearBtn" type="button"><i class="fa fa-undo"></i></button>
+        </div>
+        
         <hr>
         <div class="recipes">
 
@@ -81,7 +87,8 @@
                         <label for="ingredients">Recipe Ingredients</label>
                         <div class="ingredientInput">
                             <input type="text" class="form-control" id="ingredientInput" placeholder="Ingredients">
-                            <input id="ingredientBtn" type="button" value="Add"/>
+                            <!-- <input id="ingredientBtn" type="button" value="Add"/> -->
+                            <button type="button" id="ingredientBtn"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <small id="ingredientsSmall" class="form-text text-muted">Enter each ingredient individually.</small>
                         <ul class="ingredientList">
@@ -92,7 +99,7 @@
                         <label for="directions">Recipe Directions</label>
                         <div class="directionInput">
                             <input type="text" class="form-control" id="directionInput" placeholder="Directions">
-                            <input id="directionBtn" type="button" value="Add">
+                            <button id="directionBtn" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <small id="directionsSmall" class="form-text text-muted">Enter each direction individually.</small>
                         <ul class="directionList">

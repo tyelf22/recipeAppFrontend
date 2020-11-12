@@ -1,0 +1,36 @@
+.recipesContainer{
+    .titleSearch {
+        display: flex;
+        align-items: center;
+
+        input[type=text]{
+            width: 15%;
+            height: 40px;
+            margin-left: auto;
+            margin-right: 10px;
+            border-radius: 20px;
+            padding-left: 10px;
+            
+        }
+
+        #searchBtn {
+            border: none;
+            border-radius: 50px;
+            background-color: #2196f3;
+            color: white;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            margin-right: 5px;
+        
+        }
+
+        #clearBtn{
+            border: none;
+            border-radius: 50px;
+            background-color: #F44336;
+            color: white;
+            padding: 10px 20px;
+            text-transform: uppercase;
+        }
+    }
+}

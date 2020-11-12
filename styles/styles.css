@@ -1,4 +1,41 @@
 @charset "UTF-8";
+.recipesContainer .titleSearch {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.recipesContainer .titleSearch input[type=text] {
+  width: 15%;
+  height: 40px;
+  margin-left: auto;
+  margin-right: 10px;
+  border-radius: 20px;
+  padding-left: 10px;
+}
+
+.recipesContainer .titleSearch #searchBtn {
+  border: none;
+  border-radius: 50px;
+  background-color: #2196f3;
+  color: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  margin-right: 5px;
+}
+
+.recipesContainer .titleSearch #clearBtn {
+  border: none;
+  border-radius: 50px;
+  background-color: #F44336;
+  color: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+}
+
 .recipes {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -15,7 +52,7 @@
   background: #fff;
   width: 350px;
   min-height: 500px;
-  margin: 5px;
+  margin: 20px 10px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
@@ -154,10 +191,28 @@
   display: flex;
 }
 
+.addModal .ingredientField #ingredientBtn {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 40px;
+  margin: 0 10px;
+}
+
 .addModal .directionField .directionInput {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.addModal .directionField #directionBtn {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  width: 40px;
+  margin: 0 10px;
 }
 
 .addModal .rate {
