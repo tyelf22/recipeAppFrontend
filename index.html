@@ -14,7 +14,7 @@
 
 <body>
     <!--NAV-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg topNav">
         <a class="navbar-brand" href="/">Recipes</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,11 +29,16 @@
         </div>
     </nav>
 
+    <!-- Alert -->
+    <div id="alert" class="alert alert-danger fade show" role="alert">
+        <strong>No Category Found.</strong> Enter an existing category.
+    </div>
+
     <!--Recipe Container-->
     <div class="container recipesContainer">
         <div class="titleSearch">
             <h1>My Recipes</h1>
-            <input id="searchInput" type="text" placeholder="Search Category...">
+            <input id="searchInput" type="text" placeholder="Search Category">
             <button id="searchBtn" type="button"><i class="fa fa-search"></i></button>
             <button id="clearBtn" type="button"><i class="fa fa-undo"></i></button>
         </div>
@@ -43,6 +48,8 @@
 
         </div>
     </div>
+
+
 
     
     <!-- Modal -->
@@ -119,9 +126,32 @@
     </div>
 
     <!--Floating Button-->
-    <button type="button" id="addNewRecipeBtn" class="float" data-toggle="modal" data-target="#exampleModalCenter">
+    <button type="button" id="addNewRecipeBtn" class="float recFloat" data-toggle="modal" data-target="#exampleModalCenter">
         <i class="fa fa-plus my-float"></i>
     </button>
+
+    <button type="button" id="shoppingListBtn" class="float shopFloat">
+        <i class="fa fa-shopping-cart my-float"></i>
+    </button>
+
+    <!--Draggable Div-->
+    <div id="shoppingList">
+        <div class="listWrapper">
+            <div class="listHeader">
+                <h4>Shopping List</h4>
+                <button type="button" id="closeBtn"><i class="fa fa-times"></i></button>
+            </div>
+            <input id="inputQuantity" type="text" placeholder="Quantity">
+            <input id="inputItem" type="text" placeholder="Item">
+            <button id="addListBtn" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <ul id="shoppingItems">
+
+            </ul>
+            
+        </div>
+        <button class="btn btn-primary" id="updateBtn">Update</button>
+        
+    </div>
 
     <script src="app.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

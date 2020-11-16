@@ -74,7 +74,10 @@
                     color: #000000;
                 }
             }
-    
+            
+            .directions {
+                margin: 5px 5px 15px 0;
+            }
             .ingredients {
                 margin: 5px 5px 15px 0;
             }
@@ -124,7 +127,7 @@
             font-size: 32px;
             margin: 5px 45px 5px 0;
             cursor: pointer;
-            color: #4caf50;
+            color: #4CAF50;
         }
 
         .trash {

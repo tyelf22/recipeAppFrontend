@@ -1,4 +1,12 @@
 @charset "UTF-8";
+#alert {
+  text-align: center;
+}
+
+.recipesContainer {
+  margin-top: 20px;
+}
+
 .recipesContainer .titleSearch {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -14,13 +22,14 @@
   margin-left: auto;
   margin-right: 10px;
   border-radius: 20px;
+  border: 1px solid #ccc;
   padding-left: 10px;
 }
 
 .recipesContainer .titleSearch #searchBtn {
   border: none;
   border-radius: 50px;
-  background-color: #2196f3;
+  background-color: #4CAF50;
   color: white;
   padding: 10px 20px;
   text-transform: uppercase;
@@ -30,10 +39,115 @@
 .recipesContainer .titleSearch #clearBtn {
   border: none;
   border-radius: 50px;
-  background-color: #F44336;
+  background-color: #2196f3;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
   text-transform: uppercase;
+}
+
+.topNav {
+  background-color: #203647 !important;
+  text-decoration: none;
+}
+
+.topNav a {
+  color: white;
+}
+
+.topNav:visited {
+  text-decoration: none;
+}
+
+#shoppingList {
+  width: 500px;
+  cursor: move;
+  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  background-color: white;
+  border-radius: 3px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#shoppingList .listWrapper {
+  text-align: center;
+}
+
+#shoppingList .listWrapper .listHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  /* adjustment */
+  position: relative;
+  margin-bottom: 25px;
+}
+
+#shoppingList .listWrapper .listHeader h4 {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 auto;
+          flex: 0 1 auto;
+  position: absolute;
+  /* new */
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+#shoppingList .listWrapper .listHeader #closeBtn {
+  border: none;
+  background: none;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 1 auto;
+          flex: 0 1 auto;
+  margin-left: auto;
+}
+
+#shoppingList #shoppingItems li {
+  list-style-type: none;
+  margin: 20px 0;
+}
+
+#shoppingList #shoppingItems input[type='text'] {
+  width: 40px;
+}
+
+#shoppingList #shoppingItems .delShopping {
+  border: none;
+  background: red;
+  color: white;
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 1px 7px 3px 7px;
+  margin-left: 50px;
+}
+
+#shoppingList #addListBtn {
+  border: none;
+  border-radius: 50px;
+  color: #FFF;
+  background-color: #2196f3;
+  text-align: center;
+  -webkit-box-shadow: 2px 2px 3px #999;
+          box-shadow: 2px 2px 3px #999;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+#shoppingList #updateBtn {
+  float: right;
+  margin: 5px;
+}
+
+#shoppingList .allItems {
+  cursor: pointer;
 }
 
 .recipes {
@@ -124,6 +238,10 @@
   color: #000000;
 }
 
+.recipes .recipe-card .card-bottom .directions {
+  margin: 5px 5px 15px 0;
+}
+
 .recipes .recipe-card .card-bottom .ingredients {
   margin: 5px 5px 15px 0;
 }
@@ -172,7 +290,7 @@
   font-size: 32px;
   margin: 5px 45px 5px 0;
   cursor: pointer;
-  color: #4caf50;
+  color: #4CAF50;
 }
 
 .recipes .recipe-card .trash {
@@ -297,9 +415,7 @@
   position: fixed;
   width: 55px;
   height: 55px;
-  bottom: 20px;
   right: 20px;
-  background-color: #2196f3;
   border-radius: 50px;
   border: none;
   color: #FFF;
@@ -320,6 +436,16 @@
 .float .my-float {
   margin-top: 6px;
   font-size: 25px;
+}
+
+.recFloat {
+  bottom: 20px;
+  background-color: #2196f3;
+}
+
+.shopFloat {
+  bottom: 90px;
+  background-color: red;
 }
 
 html {

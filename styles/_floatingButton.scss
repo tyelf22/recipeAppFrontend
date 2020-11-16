@@ -2,9 +2,7 @@
 	position: fixed;
 	width: 55px;
 	height: 55px;
-	bottom: 20px;
-	right: 20px;
-    background-color: #2196f3;
+    right: 20px;
     border-radius: 50px;
     border: none;
 	color: #FFF;
@@ -24,5 +22,15 @@
     }
 
 
+}
+
+.recFloat{
+    bottom: 20px;
+    background-color: #2196f3;
+}
+
+.shopFloat{
+    bottom: 90px;
+    background-color: red;
 }
 

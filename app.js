@@ -1,5 +1,6 @@
 console.log('connected to app.js')
 const url = "http://localhost:3000/recipes"
+const shoppingUrl = "http://localhost:3000/shopping"
 
 //global var for saving or adding
 let isEdit = true
@@ -64,9 +65,11 @@ const organizeInfo = (data) => {
             <h2>${recipe.name}</h2>
             <h3>${recipe.category}</h3>
             ${ratingHtml}
-            <p>${recipe.directions}</p>
+            <br><br>
             <h5>Ingredients</h5>
             <p class="ingredients">${recipe.ingredients}</p>
+            <h5>Directions</h5>
+            <p class="directions">${recipe.directions}</p>
         </div>
 
         `
@@ -91,7 +94,7 @@ const organizeInfo = (data) => {
 
 }
 
-//Search Button and Input
+//Search Button, Input, alert
 let searchBtn = document.querySelector('#searchBtn').addEventListener('click', () => {
     searchBtn_click()
 })
@@ -100,6 +103,16 @@ let clearBtn = document.querySelector('#clearBtn').addEventListener('click', () 
 })
 
 let searchInput = document.querySelector('#searchInput')
+
+let alertBox = document.querySelector('#alert')
+alertBox.style.display = "none"
+
+searchInput.addEventListener("keyup", (e) => {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        document.querySelector("#searchBtn").click()
+    }
+})
 
 const searchBtn_click = async() => {
     await fetch(url)
@@ -110,7 +123,16 @@ const searchBtn_click = async() => {
             let search = searchInput.value.toLowerCase()
             return cat == search
         })
-    organizeInfo(filtered)
+        if(filtered.length > 0){
+            organizeInfo(filtered)
+        }else {
+            alertBox.style.display = 'block'
+
+            setTimeout(() => {
+                alertBox.style.display = 'none'
+            }, 5000)
+        }
+        
     })
 }
 
@@ -420,12 +442,203 @@ const reRenderIngredients = (id, data) => {
 
 }
 
-
 const removeIngredient = async(index, id, ingArr) => {
     ingArr.splice(index, 1)
 
     reRenderIngredients(id, ingArr)
 }
+
+
+//Draggable Div
+let target = document.getElementById('shoppingList')
+
+function onDrag(e) {
+    let originalStyles = window.getComputedStyle(target)
+    target.style.left = parseInt(originalStyles.left) + e.movementX + 'px'
+    target.style.top = parseInt(originalStyles.top) + e.movementY + 'px'
+}
+
+function onLetGo() {
+    document.removeEventListener('mousemove', onDrag)
+    document.removeEventListener('mouseup', onLetGo)
+}
+
+function onGrab() {
+    document.addEventListener('mousemove', onDrag)
+    document.addEventListener('mouseup', onLetGo)
+}
+
+target.addEventListener('mousedown', onGrab)
+
+//Toggle Shopping List
+let shoppingList = document.querySelector('#shoppingList')
+shoppingList.style.display = "none"
+let shoppingListBtn = document.querySelector('#shoppingListBtn').addEventListener('click', () => {
+    toggleShoppingList()
+})
+
+const toggleShoppingList = () => {
+    if (shoppingList.style.display === "none") {
+        shoppingList.style.display = "block";
+        
+    } else {
+        shoppingList.style.display = "none";
+    }
+    
+}
+
+
+//Display all shopping items
+const retrieveAllShopping = async () => {
+    await fetch(shoppingUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            showShoppingList(data)
+    })
+}
+
+
+
+
+const showShoppingList = (data) => {
+    data.forEach(item => {
+        shoppingItems.innerHTML += `
+        <li class="allItems"><input type="text" value="${item.quantity}"/> ${item.name}  <button class="delShopping" onClick="deleteShoppingItem(this.id)" id=btn_${item._id}><i class="fa fa-times" aria-hidden="true"></i></button></li>
+        `
+        document.querySelector('.allItems').addEventListener('click', () => {
+            crossOff()
+        })
+    })
+
+}
+
+const crossOff = () => {
+    let shoppingItemsChildren = document.querySelectorAll('.allItems')
+    shoppingItemsChildren.forEach(item => {
+        item.addEventListener('click', () => {
+            if(item.style.textDecoration == 'line-through'){
+                item.style.textDecoration = 'none'
+            }else {
+                item.style.textDecoration = 'line-through'
+            }
+        })
+    })
+}
+
+
+
+
+let inputQuantity = document.querySelector('#inputQuantity')
+let inputItem = document.querySelector('#inputItem')
+let addListBtn = document.querySelector('#addListBtn').addEventListener('click', () => {
+    addShoppingItem()
+})
+
+const addShoppingItem = async() => {
+    let quanVal = inputQuantity.value
+    let itemVal = inputItem.value
+
+    let newRecipe = {
+        name: itemVal,
+        quantity: quanVal,
+        complete: false
+    }
+
+    const rawResponse = await fetch(shoppingUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newRecipe)
+    });
+    const content = await rawResponse.json();
+
+    console.log(content)
+    if (content) {
+        shoppingItems.innerHTML = ""
+        retrieveAllShopping()
+    }
+
+}
+
+deleteShoppingItem = async (id) => {
+    splitId = id.split("_")[1]
+
+    await fetch(`${shoppingUrl}/${splitId}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+
+    shoppingItems.innerHTML = ""
+
+    retrieveAllShopping()
+}
+
+let updateBtn = document.querySelector('#updateBtn').addEventListener('click', () => {
+    checkQuantities()
+})
+
+const checkQuantities = async() => {
+    let li = document.querySelectorAll(".allItems")
+    await fetch(`${shoppingUrl}`)
+    .then(response => response.json())
+    .then(data => {
+        data.forEach((item, index) => {
+            let toUpdate = li[index].childNodes[0].value 
+            let styleOfItem = li[index].style.textDecoration
+            if(styleOfItem == 'none'){
+                styleOfItem = 'line-through'
+            }else{
+                styleOfItem = 'none'
+            }
+            if(item.quantity != toUpdate){
+                console.log('not equal')
+                updateQuantities(item._id, toUpdate, item.complete)
+                
+            }
+        })
+        
+    })
+
+
+}
+
+const updateQuantities = async(id, toUpdate, isCompleted) => {
+    console.log(id)
+    let editedItem = {
+        quantity: toUpdate,
+        complete: isCompleted
+    }
+
+    let postUrl = `${shoppingUrl}/${id}`
+        const rawResponse = await fetch(postUrl, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(editedItem)
+        });
+
+        const content = await rawResponse.json();
+    
+        console.log(content)
+        // if (content) {
+        //     retrieveAllShopping()
+        // }
+}
+
+
+
+let closeBtn = document.querySelector('#closeBtn').addEventListener('click', () => {
+    shoppingList.style.display = 'none'
+})
+
+retrieveAllShopping()
+
+
 
 
 
