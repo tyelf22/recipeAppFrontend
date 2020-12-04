@@ -37,6 +37,7 @@
 
     #shoppingItems{
 
+
         li {
             list-style-type: none;
             margin: 20px 0;
@@ -77,7 +78,17 @@
 
     }
 
-    .allItems{
-        cursor: pointer;
+    .containItems{
+        display: flex;
+        justify-content: center;
+        margin: 5px 0;
+
+        input{
+            margin-right: 15px;
+        }
+        .allItems{
+            cursor: pointer;
+        }
     }
+
 }

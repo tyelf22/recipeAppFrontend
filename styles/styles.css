@@ -146,7 +146,21 @@
   margin: 5px;
 }
 
-#shoppingList .allItems {
+#shoppingList .containItems {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 5px 0;
+}
+
+#shoppingList .containItems input {
+  margin-right: 15px;
+}
+
+#shoppingList .containItems .allItems {
   cursor: pointer;
 }
 

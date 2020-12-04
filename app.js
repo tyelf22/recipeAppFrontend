@@ -493,37 +493,108 @@ const retrieveAllShopping = async () => {
     await fetch(shoppingUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             showShoppingList(data)
     })
 }
 
 
 
-
+const  shoppingItems = document.querySelector('#shoppingItems')
 const showShoppingList = (data) => {
     data.forEach(item => {
-        shoppingItems.innerHTML += `
-        <li class="allItems"><input type="text" value="${item.quantity}"/> ${item.name}  <button class="delShopping" onClick="deleteShoppingItem(this.id)" id=btn_${item._id}><i class="fa fa-times" aria-hidden="true"></i></button></li>
-        `
-        document.querySelector('.allItems').addEventListener('click', () => {
-            crossOff()
+/*         shoppingItems.innerHTML += `
+        <li class="allItems" id=shop_${item._id}><input type="text" value="${item.quantity}"/> ${item.name}  <button class="delShopping" onClick="deleteShoppingItem(this.id)" id=btn_${item._id}><i class="fa fa-times" aria-hidden="true"></i></button></li>
+        ` */
+        
+        let containItems = document.createElement('div')
+        containItems.className = 'containItems'
+
+        let newLi = document.createElement('li')
+        newLi.classList.add('allItems')
+        newLi.setAttribute('id', `shop_${item._id}`)
+        
+
+        let quanInput = document.createElement('input')
+        quanInput.setAttribute('type', 'text')
+        quanInput.setAttribute('value', `${item.quantity}`)
+        quanInput.setAttribute('id', `sItem_${item._id}`)
+        newLi.innerText = `${item.name}`
+
+
+        newLi.addEventListener('click', () => {
+            crossOff(item._id)
         })
+
+        let newButton = document.createElement('button')
+        newButton.classList.add("delShopping")
+        newButton.addEventListener('click', () => deleteShoppingItem(item._id))
+        // newButton.onclick = deleteShoppingItem(item._id)
+        newButton.setAttribute('id', `btn_${item._id}`)
+
+        let newIcon = document.createElement('i')
+        newIcon.classList.add('fa')
+        newIcon.classList.add('fa-times')
+
+        newButton.appendChild(newIcon)
+
+        newLi.appendChild(newButton)
+
+        containItems.appendChild(quanInput)
+        containItems.appendChild(newLi)
+
+        shoppingItems.appendChild(containItems)
+
+/*         let liToCross = document.querySelector(`shop_${item._id}`)
+        if(item.complete == true){
+            console.log('in item.complete')
+            liToCross.style.textDecoration = 'line-through'
+        }else{
+            liToCross.style.textDecoration = 'none'
+        } */
     })
+
+    checkQuantities()
 
 }
 
-const crossOff = () => {
-    let shoppingItemsChildren = document.querySelectorAll('.allItems')
-    shoppingItemsChildren.forEach(item => {
-        item.addEventListener('click', () => {
-            if(item.style.textDecoration == 'line-through'){
-                item.style.textDecoration = 'none'
-            }else {
-                item.style.textDecoration = 'line-through'
-            }
-        })
+const crossOff = async(id) => {
+    let currentIsComplete
+    await fetch(`${shoppingUrl}/${id}`)
+    .then(response => response.json())
+    .then(data => {
+        currentIsComplete = data.complete
+
+        if(currentIsComplete == true){
+            currentIsComplete = false
+        }else{
+            currentIsComplete = true
+        }
     })
+
+    let editedItem = {
+        complete: currentIsComplete,
+    }
+
+
+    let postUrl = `${shoppingUrl}/${id}`
+    const rawResponse = await fetch(postUrl, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(editedItem)
+    });
+
+    const content = await rawResponse.json();
+    console.log(content)
+
+    let shoppingItem = document.querySelector(`#shop_${id}`)
+    if(shoppingItem.style.textDecoration == 'line-through'){
+        shoppingItem.style.textDecoration = 'none'
+    }else {
+        shoppingItem.style.textDecoration = 'line-through'
+    }
+
 }
 
 
@@ -563,9 +634,8 @@ const addShoppingItem = async() => {
 }
 
 deleteShoppingItem = async (id) => {
-    splitId = id.split("_")[1]
 
-    await fetch(`${shoppingUrl}/${splitId}`, {
+    await fetch(`${shoppingUrl}/${id}`, {
         method: 'DELETE',
         headers: {
             "Content-type": "application/json; charset=UTF-8"
@@ -582,20 +652,26 @@ let updateBtn = document.querySelector('#updateBtn').addEventListener('click', (
 })
 
 const checkQuantities = async() => {
-    let li = document.querySelectorAll(".allItems")
+    //let li = document.querySelectorAll(".allItems")
     await fetch(`${shoppingUrl}`)
     .then(response => response.json())
     .then(data => {
+        console.log(data)
         data.forEach((item, index) => {
-            let toUpdate = li[index].childNodes[0].value 
-            let styleOfItem = li[index].style.textDecoration
-            if(styleOfItem == 'none'){
+            let toUpdate = document.querySelector(`#sItem_${item._id}`).value
+            let liToCross = document.querySelector(`#shop_${item._id}`)
+/*             if(styleOfItem == 'none'){
                 styleOfItem = 'line-through'
             }else{
                 styleOfItem = 'none'
+            } */
+
+            if(item.complete == true){
+                liToCross.style.textDecoration = 'line-through'
+            }else{
+                liToCross.style.textDecoration = 'none'
             }
             if(item.quantity != toUpdate){
-                console.log('not equal')
                 updateQuantities(item._id, toUpdate, item.complete)
                 
             }
@@ -607,10 +683,9 @@ const checkQuantities = async() => {
 }
 
 const updateQuantities = async(id, toUpdate, isCompleted) => {
-    console.log(id)
+    console.log(toUpdate)
     let editedItem = {
         quantity: toUpdate,
-        complete: isCompleted
     }
 
     let postUrl = `${shoppingUrl}/${id}`
@@ -624,10 +699,6 @@ const updateQuantities = async(id, toUpdate, isCompleted) => {
 
         const content = await rawResponse.json();
     
-        console.log(content)
-        // if (content) {
-        //     retrieveAllShopping()
-        // }
 }
 
 
