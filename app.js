@@ -59,6 +59,11 @@ const organizeInfo = (data) => {
                 <span class="fa fa-star"></span>`
         }
 
+
+        console.log('here is recipe ingredients = ', recipe.ingredients)
+        
+
+
         recipeDiv.innerHTML = `
         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/oatmeal.jpg" alt="Chai Oatmeal" />
         <div class="card-bottom">
@@ -67,9 +72,9 @@ const organizeInfo = (data) => {
             ${ratingHtml}
             <br><br>
             <h5>Ingredients</h5>
-            <p class="ingredients">${recipe.ingredients}</p>
+            <p class="ingredients">${recipe.ingredients.join(', ')}</p>
             <h5>Directions</h5>
-            <p class="directions">${recipe.directions}</p>
+            <p class="directions">${recipe.directions.join(', ')}</p>
         </div>
 
         `
@@ -627,6 +632,8 @@ const addShoppingItem = async() => {
 
     console.log(content)
     if (content) {
+        inputQuantity.value = ""
+        inputItem.value = ""
         shoppingItems.innerHTML = ""
         retrieveAllShopping()
     }
