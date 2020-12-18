@@ -1,6 +1,6 @@
 console.log('connected to app.js')
-const url = "http://te-recipe-app.herokuapp.com/recipes"
-const shoppingUrl = "http://te-recipe-app.herokuapp.com/shopping"
+const url = "https://te-recipe-app.herokuapp.com/recipes"
+const shoppingUrl = "https://te-recipe-app.herokuapp.com/shopping"
 
 //global var for saving or adding
 let isEdit = true
