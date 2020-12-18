@@ -1,6 +1,6 @@
 # Vanilla JS Recipe App
 
-This app is useful for creating todos, organizing todos, and being sure you have complete control over your todos.
+This app is useful for creating recipes, organizing recipes, and being sure you have complete control over your recipes.
 
 # Application Architecture
     - Frontend hosted on Netlify
