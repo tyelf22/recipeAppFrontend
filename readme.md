@@ -7,98 +7,22 @@ This app is useful for creating todos, organizing todos, and being sure you have
     - Backend hosted on Heroku
     - Database: MongoDB
 
-The Backend endpoints are described below 
-👇
+# User Stories
+- As a user I would like to be able to add new recipes ✅
+- As a user I need to be able to add ingredients to a recipe ✅
+- As a user I need to be able to edit ingredients to a  recipe ✅
+- As a user I need to be able to remove ingredients to a recipe ✅
+- As a user I need to add directions to a recipe ✅
+- As a user I need to edit direction for a recipe ✅
+- As a user I need to be able to remove directions to a recipe ✅
+- As a user i would like to create new shopping lists ✅
+- As a user i would like to be able to add ingredients to a shopping list while looking at a recipe ✅
+- As a user I would like to be able to cross items off of a shopping list ✅
+- As a user I would like to be able to remove items off a shopping list ✅
+- As a user I would like to be able to change quantities on a shopping list ✅
+- As a user I would like to be able to categorize recipes ✅
+- As a user I would like to rate recipes ✅
+- As a user I need to be able to edit a recipes category ✅
+- As a user I need to be able to change a rating of a recipe ✅
 
-## Return all todos
 
-### Request
-    GET /todos
-
-#### Response
-
-```json
-[
-    {
-        "todo": "Buy Milk",
-        "complete": false,
-        "category": "Grocery"
-    },
-
-    {
-        "todo": "Study",
-        "complete": false,
-        "category": "School"
-    }
-]
-```
-
-## Return specific todo
-
-### Request
-    GET /todos/:id
-
-#### Response
-
-```json
-{
-    "id": "5f98517c972e162358bc9829",
-    "todo": "Buy Milk",
-    "complete": false,
-    "category": "Grocery"
-}
-```
-
-## Create new todo
-
-### Request
-    Post /todos
-
-```json
-{
-    "todo": "Buy Cheese",
-    "complete": false,
-    "category": "Grocery"
-}
-```
-    
-#### Response
-
-```json
-{
-    "todo": "Buy Cheese",
-    "complete": false,
-    "category": "Grocery"
-}
-```
-
-## Complete Todo
-
-### Request
-    Patch /todos/:id
-
-```json
-{
-    "complete": true,
-}
-```
-    
-#### Response
-
-```json
-{
-    "todo": "Buy Cheese",
-    "complete": true,
-    "category": "Grocery"
-}
-```
-
-## Delete Todos
-
-### Request
-    Delete /todos/:id
-
-    
-#### Response
-
-[Todo was deleted]
