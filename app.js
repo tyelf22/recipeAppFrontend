@@ -112,6 +112,9 @@ let searchInput = document.querySelector('#searchInput')
 let alertBox = document.querySelector('#alert')
 alertBox.style.display = "none"
 
+let recipeAlert = document.querySelector('#recipeAlert')
+recipeAlert.style.display = "none"
+
 searchInput.addEventListener("keyup", (e) => {
     if (e.keyCode === 13) {
         e.preventDefault();
@@ -294,6 +297,8 @@ const saveIngredient = async() => {
             ingredientArr = []
             directionArr = []
             retrieveAll()
+            recipeAlert.style.display = "block"
+            setTimeout(function(){ recipeAlert.style.display = "none" }, 3000);
         }
     }else {
         let newRecipe = {
@@ -317,6 +322,8 @@ const saveIngredient = async() => {
         console.log(content)
         if (content) {
             retrieveAll()
+            recipeAlert.style.display = "block"
+            setTimeout(function(){ recipeAlert.style.display = "none" }, 3000);
         }
     }
 
